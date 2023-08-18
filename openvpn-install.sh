@@ -891,7 +891,7 @@ push "redirect-gateway ipv6"' >>/etc/openvpn/server.conf
 ca ca.crt
 cert $SERVER_NAME.crt
 key $SERVER_NAME.key
-auth $HMAC_ALG
+auth-user-pass
 cipher $CIPHER
 ncp-ciphers $CIPHER
 tls-server
@@ -1038,7 +1038,7 @@ persist-key
 persist-tun
 remote-cert-tls server
 verify-x509-name $SERVER_NAME name
-auth $HMAC_ALG
+auth-user-pass
 auth-nocache
 cipher $CIPHER
 tls-client
@@ -1066,16 +1066,16 @@ function newClient() {
 		read -rp "Client name: " -e CLIENT
 	done
 
-	echo ""
-	echo "Do you want to protect the configuration file with a password?"
-	echo "(e.g. encrypt the private key with a password)"
-	echo "   1) Add a passwordless client"
-	echo "   2) Use a password for the client"
+	#echo ""
+	#echo "Do you want to protect the configuration file with a password?"
+	#echo "(e.g. encrypt the private key with a password)"
+	#echo "   1) Add a passwordless client"
+	#echo "   2) Use a password for the client"
 
-	until [[ $PASS =~ ^[1-2]$ ]]; do
-		read -rp "Select an option [1-2]: " -e -i 1 PASS
-	done
-
+	#until [[ $PASS =~ ^[1-2]$ ]]; do
+	#	read -rp "Select an option [1-2]: " -e -i 1 PASS
+	#done
+	PASS=2
 	CLIENTEXISTS=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep -c -E "/CN=$CLIENT\$")
 	if [[ $CLIENTEXISTS == '1' ]]; then
 		echo ""
