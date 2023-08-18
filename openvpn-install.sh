@@ -1075,7 +1075,7 @@ function newClient() {
 	#until [[ $PASS =~ ^[1-2]$ ]]; do
 	#	read -rp "Select an option [1-2]: " -e -i 1 PASS
 	#done
-	PASS=2
+	PASS=1
 	CLIENTEXISTS=$(tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep -c -E "/CN=$CLIENT\$")
 	if [[ $CLIENTEXISTS == '1' ]]; then
 		echo ""
